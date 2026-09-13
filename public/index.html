@@ -196,10 +196,11 @@ let history = [];
   if (!text) return;
 
   addMessage(text, "sent");
-    history.push({
-  role: "user",
-  content: text
-});
+
+  history.push({
+    role: "user",
+    content: text
+  });
 
   input.value = "";
 
@@ -212,9 +213,9 @@ let history = [];
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-  message: text,
-  history: history
-})
+        message: text,
+        history: history
+      })
     });
 
     const data = await response.json();
@@ -222,13 +223,12 @@ let history = [];
     typing.style.display = "none";
 
     if (data.reply) {
-  addMessage(data.reply, "received");
+      addMessage(data.reply, "received");
 
-  history.push({
-    role: "assistant",
-    content: data.reply
-  });
-}
+      history.push({
+        role: "assistant",
+        content: data.reply
+      });
     } else {
       addMessage("No pude responder ahora 😕", "received");
     }
