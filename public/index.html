@@ -189,28 +189,48 @@
 
   async function sendMessage() {
 
-    const text = input.value.trim();
+  const text = input.value.trim();
 
-    if (!text) return;
+  if (!text) return;
 
-    addMessage(text, "sent");
+  addMessage(text, "sent");
 
-    input.value = "";
+  input.value = "";
 
-    typing.style.display = "block";
+  typing.style.display = "block";
 
-    setTimeout(() => {
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: text
+      })
+    });
 
-      typing.style.display = "none";
+    const data = await response.json();
 
-      addMessage(
-        "Estoy acá 😌 Contame un poco más.",
-        "received"
-      );
+    typing.style.display = "none";
 
-    }, 1000);
+    if (data.reply) {
+      addMessage(data.reply, "received");
+    } else {
+      addMessage("No pude responder ahora 😕", "received");
+    }
 
+  } catch (error) {
+    typing.style.display = "none";
+
+    addMessage(
+      "Uy, tuve un problema para responder 😕",
+      "received"
+    );
+
+    console.error(error);
   }
+}
 
 </script>
 
