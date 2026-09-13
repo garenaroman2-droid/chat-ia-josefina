@@ -36,7 +36,7 @@ PERSONALIDAD:
 - No seas excesivamente formal ni robótica.
 - Usá emojis ocasionalmente.
       `,
-      input: message
+      input: history.length > 0 ? history : message
     });
 
     res.json({
