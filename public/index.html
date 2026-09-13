@@ -196,6 +196,10 @@ let history = [];
   if (!text) return;
 
   addMessage(text, "sent");
+    history.push({
+  role: "user",
+  content: text
+});
 
   input.value = "";
 
@@ -218,7 +222,13 @@ let history = [];
     typing.style.display = "none";
 
     if (data.reply) {
-      addMessage(data.reply, "received");
+  addMessage(data.reply, "received");
+
+  history.push({
+    role: "assistant",
+    content: data.reply
+  });
+}
     } else {
       addMessage("No pude responder ahora 😕", "received");
     }
