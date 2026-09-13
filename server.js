@@ -14,6 +14,7 @@ app.use(express.static("public"));
 app.post("/api/chat", async (req, res) => {
   try {
     const message = req.body.message;
+const history = req.body.history || [];
 
     if (!message) {
       return res.status(400).json({ error: "Falta el mensaje" });
