@@ -208,8 +208,9 @@ let history = [];
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: text
-      })
+  message: text,
+  history: history
+})
     });
 
     const data = await response.json();
