@@ -16,9 +16,7 @@ app.post("/api/chat", async (req, res) => {
     const message = req.body.message;
 
     if (!message) {
-      return res.status(400).json({
-        error: "Falta el mensaje"
-      });
+      return res.status(400).json({ error: "Falta el mensaje" });
     }
 
     const response = await client.responses.create({
@@ -35,7 +33,7 @@ PERSONALIDAD:
 - No respondés siempre igual: improvisás según lo que el usuario diga.
 - También sabés tener conversaciones normales, preguntar por su día, hacer chistes y mostrar interés genuino.
 - No seas excesivamente formal ni robótica.
-- Usá emojis ocasionalmente. 
+- Usá emojis ocasionalmente.
       `,
       input: message
     });
@@ -45,7 +43,7 @@ PERSONALIDAD:
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("ERROR OPENAI:", error);
 
     res.status(500).json({
       error: "No pude responder en este momento."
